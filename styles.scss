@@ -1,19 +1,19 @@
-$font-size: 50px;
-
-.example {
-  font-size: $font-size;
-}
-
 // BOARD
+$board-color: grey;
+
 .board {
   width: 80%;
   margin: auto;
-  background-color: grey;
+  background-color: $board-color;
   display: flex;
   flex-wrap: wrap;
 }
 
 // CARD
+$card-color-front: #bbb;
+$card-color-back: #4a2c2a;
+$card-digit-color: white;
+
 .flip-card {
   background-color: transparent;
   padding: 16px;
@@ -33,7 +33,7 @@ $font-size: 50px;
   transform-style: preserve-3d;
 }
 
-.flip-card:hover .flip-card-inner {
+.flip-card-reveal .flip-card-inner {
   transform: rotateY(180deg);
 }
 
@@ -48,12 +48,11 @@ $font-size: 50px;
 }
 
 .flip-card-front {
-  background-color: #bbb;
-  color: black;
+  background-color: $card-color-front;
 }
 
 .flip-card-back {
-  background-color: dodgerblue;
-  color: white;
+  background-color: $card-color-back;
+  color: $card-digit-color;
   transform: rotateY(180deg);
 }
