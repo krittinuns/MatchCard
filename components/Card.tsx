@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useGlobalState } from "./State";
 
 type Props = { digit: number };
 
 const Card = (props: Props) => {
+  const [click, setClick] = useGlobalState("click");
   const [isReveal, toggleReveal] = useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     toggleReveal(!isReveal);
+    setClick(current => current + 1);
   };
 
   return (

@@ -25,7 +25,8 @@
     "next": "^9.2.2",
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "react-hooks-global-state": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^13.7.7",
