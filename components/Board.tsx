@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import _ from "lodash";
 
 import { useGlobalState } from "./State";
@@ -9,12 +9,36 @@ type Props = {
 };
 
 const Board: Function = (props: Props): JSX.Element => {
-  const [paringCardId, setParingCardId] = useState(null);
   const [click, setClick] = useGlobalState("click");
+  const [myBestClick, setMyBestClick] = useGlobalState("myBestClick");
   const [, toggleGamePause] = useGlobalState("isGamePause");
 
+  const [paringCardId, setParingCardId] = useState(null);
+  const [matchedPair, setMatchedPair] = useState(0);
+
+  const totalPair = props.numbers.length / 2;
+
   // create references to each card
-  const refs = Array.from({ length: 12 }).map(() => useRef());
+  const refs = Array.from({ length: props.numbers.length }).map(() => useRef());
+
+  useEffect(() => {
+    // load best click
+    const localBestClick = parseInt(localStorage.getItem("MATCHCARD_MYBEST"));
+    if (!_.isNaN(localBestClick)) {
+      setMyBestClick(localBestClick);
+    }
+  });
+
+  useEffect(() => {
+    // game over
+    if (matchedPair == totalPair) {
+      // new best click
+      if (click < myBestClick) {
+        setMyBestClick(click);
+        localStorage.setItem("MATCHCARD_MYBEST", click.toString());
+      }
+    }
+  }, [matchedPair]);
 
   // on card-flip handler
   const onFlip = (clickedCardId: number) => {
@@ -27,10 +51,15 @@ const Board: Function = (props: Props): JSX.Element => {
       const prevCard = _.get(refs[paringCardId], "current");
 
       if (clickedCard.getNumber() !== prevCard.getNumber()) {
+        // miss
         toggleGamePause(true);
         clickedCard.flipDown();
         prevCard.flipDown();
+      } else {
+        // match
+        setMatchedPair(matchedPair + 1);
       }
+      // reset pairing
       setParingCardId(null);
     }
   };
