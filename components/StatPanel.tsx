@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import { useGlobalState } from "./State";
+import { useGlobalState } from "./GlobalState";
 
 function fetcher(url) {
   return fetch(url).then(r => r.json());

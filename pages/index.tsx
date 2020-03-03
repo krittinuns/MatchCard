@@ -1,8 +1,10 @@
 import _ from "lodash";
 import "./styles.scss";
+import { useState, useRef } from "react";
 
-import Stat from "../components/Stat";
+import StatPanel from "../components/StatPanel";
 import Board from "../components/Board";
+import NewGameButton from "../components/NewGameButton";
 
 const TOTAL_PAIRS = 6;
 
@@ -15,14 +17,25 @@ const generatePairingNumbers = (): Array<number> => {
   return numbers;
 };
 
-const App: Function = () => {
-  const numbers = generatePairingNumbers();
+const Game: Function = () => {
+  const [numbers, setNumbers] = useState(generatePairingNumbers());
+  const boardRef = useRef();
+
+  const newGame = () => {
+    _.get(boardRef, "current").newGame();
+
+    setTimeout(() => {
+      setNumbers(generatePairingNumbers());
+    }, 500);
+  };
+
   return (
     <div>
-      <Stat />
-      <Board numbers={numbers} />
+      <StatPanel />
+      <NewGameButton onClick={newGame} />
+      <Board ref={boardRef} numbers={numbers} />
     </div>
   );
 };
 
-export default App;
+export default Game;
