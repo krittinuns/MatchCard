@@ -1,12 +1,12 @@
 // BOARD
 $board-color: grey;
-
+$card-per-row: 4;
 .board {
-  width: 80%;
+  width: 70%;
   margin: auto;
   background-color: $board-color;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat($card-per-row, auto);
 }
 
 // CARD
@@ -18,10 +18,7 @@ $card-digit-color: white;
   background-color: transparent;
   padding: 16px;
   perspective: 1000px;
-
-  flex-grow: 1;
   height: 200px;
-  width: 20%;
 }
 
 .flip-card-inner {
@@ -55,4 +52,22 @@ $card-digit-color: white;
   background-color: $card-color-back;
   color: $card-digit-color;
   transform: rotateY(180deg);
+}
+
+// NEW GAME BUTTON
+.new-game {
+  text-align: center;
+  margin-bottom: 20px;
+
+  button {
+    background-color: #599bb3;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 13px 32px;
+    text-decoration: none;
+  }
 }

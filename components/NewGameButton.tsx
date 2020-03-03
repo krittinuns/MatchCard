@@ -7,7 +7,11 @@ const NewGameButton: Function = (props: Props): JSX.Element => {
     props.onClick();
   };
 
-  return <button onClick={handleClick}>New Game</button>;
+  return (
+    <div className="new-game">
+      <button onClick={handleClick}>New Game</button>
+    </div>
+  );
 };
 
 export default NewGameButton;
