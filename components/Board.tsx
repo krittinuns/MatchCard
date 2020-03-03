@@ -1,26 +1,39 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import _ from "lodash";
 
-import Card from "../components/Card";
+import { useGlobalState } from "./State";
+import Card from "./Card";
 
 type Props = {
   numbers: Array<number>;
 };
 
 const Board: Function = (props: Props): JSX.Element => {
-  const [matchingNumber, setMatchingNumber] = useState(0);
+  const [paringCardId, setParingCardId] = useState(null);
+  const [click, setClick] = useGlobalState("click");
+  const [isGamePause, toggleGamePause] = useGlobalState("isGamePause");
 
-  const onFlip = (cardId: number, clickingNumber: number) => {
-    if (matchingNumber == 0) {
-      setMatchingNumber(clickingNumber);
+  // create references to each card
+  const refs = Array.from({ length: 12 }).map(() => useRef());
+
+  // on card-flip handler
+  const onFlip = (clickedCardId: number) => {
+    setClick(click + 1);
+
+    if (_.isNull(paringCardId)) {
+      setParingCardId(clickedCardId);
     } else {
-      if (matchingNumber == clickingNumber) {
-        console.log("MATCH!!");
-        // set matched state to cards
-      } else {
-        console.log("missed...");
-        // flip 2 cards down
+      console.log("checking match...");
+
+      const clickedCard = _.get(refs[clickedCardId], "current");
+      const prevCard = _.get(refs[paringCardId], "current");
+
+      if (clickedCard.getNumber() !== prevCard.getNumber()) {
+        toggleGamePause(true);
+        clickedCard.flipDown();
+        prevCard.flipDown();
       }
-      setMatchingNumber(0);
+      setParingCardId(null);
     }
   };
 
@@ -28,7 +41,13 @@ const Board: Function = (props: Props): JSX.Element => {
     <div className="board">
       {props.numbers.map((number, index) => {
         return (
-          <Card key={index} cardId={index} number={number} onFlip={onFlip} />
+          <Card
+            key={index}
+            cardId={index}
+            number={number}
+            onFlip={onFlip}
+            ref={refs[index]}
+          />
         );
       })}
     </div>
