@@ -17,7 +17,6 @@ const generatePairingNumbers = (): Array<number> => {
 
 const App: Function = () => {
   const numbers = generatePairingNumbers();
-
   return (
     <div>
       <Stat />

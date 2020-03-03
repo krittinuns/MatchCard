@@ -17,13 +17,14 @@ const Board: Function = (props: Props): JSX.Element => {
   const [matchedPair, setMatchedPair] = useState(0);
 
   const totalPair = props.numbers.length / 2;
+  const { LOCAL_STORAGE_MYBEST } = process.env;
 
   // create references to each card
   const refs = Array.from({ length: props.numbers.length }).map(() => useRef());
 
   useEffect(() => {
     // load best click
-    const localBestClick = parseInt(localStorage.getItem("MATCHCARD_MYBEST"));
+    const localBestClick = parseInt(localStorage.getItem(LOCAL_STORAGE_MYBEST));
     if (!_.isNaN(localBestClick)) {
       setMyBestClick(localBestClick);
     }
@@ -35,7 +36,7 @@ const Board: Function = (props: Props): JSX.Element => {
       // new best click
       if (click < myBestClick) {
         setMyBestClick(click);
-        localStorage.setItem("MATCHCARD_MYBEST", click.toString());
+        localStorage.setItem(LOCAL_STORAGE_MYBEST, click.toString());
       }
     }
   }, [matchedPair]);
