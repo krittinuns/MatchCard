@@ -1,6 +1,7 @@
 import useSWR from "swr";
 
 import { useGlobalState } from "./GlobalState";
+import StatLabel from "../components/StatLabel";
 
 function fetcher(url) {
   return fetch(url).then(r => r.json());
@@ -14,10 +15,10 @@ const Stat = () => {
   const globalBest = data?.click;
 
   return (
-    <div>
-      <h1>Click : {click}</h1>
-      <h1>My Best : {myBestClick}</h1>
-      <h1>Global Best : {globalBest}</h1>
+    <div className="stat-panel">
+      <StatLabel label="CLICK" value={click} />
+      <StatLabel label="MY BEST" value={myBestClick} />
+      <StatLabel label="GLOBAL BEST" value={globalBest} />
     </div>
   );
 };
