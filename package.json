@@ -26,7 +26,8 @@
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-hooks-global-state": "^1.0.0"
+    "react-hooks-global-state": "^1.0.0",
+    "swr": "^0.1.18"
   },
   "devDependencies": {
     "@types/node": "^13.7.7",

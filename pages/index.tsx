@@ -10,8 +10,6 @@ const generatePairingNumbers = (): Array<number> => {
   numbers.push(..._.range(1, 7));
   numbers = _.shuffle(numbers);
 
-  // console.log(numbers);
-
   return numbers;
 };
 

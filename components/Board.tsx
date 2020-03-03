@@ -11,7 +11,7 @@ type Props = {
 const Board: Function = (props: Props): JSX.Element => {
   const [paringCardId, setParingCardId] = useState(null);
   const [click, setClick] = useGlobalState("click");
-  const [isGamePause, toggleGamePause] = useGlobalState("isGamePause");
+  const [, toggleGamePause] = useGlobalState("isGamePause");
 
   // create references to each card
   const refs = Array.from({ length: 12 }).map(() => useRef());
@@ -23,8 +23,6 @@ const Board: Function = (props: Props): JSX.Element => {
     if (_.isNull(paringCardId)) {
       setParingCardId(clickedCardId);
     } else {
-      console.log("checking match...");
-
       const clickedCard = _.get(refs[clickedCardId], "current");
       const prevCard = _.get(refs[paringCardId], "current");
 
