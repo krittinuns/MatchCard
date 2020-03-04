@@ -16,3 +16,14 @@ Matching card game create with NextJS / TypeScript / SCSS
 Application will be ready on http://localhost:3000
 
 ![Screenshot](screenshot.png)
+
+## Todo
+
+- [ ] Unit Test
+- [ ] Docker
+- [ ] Kubernetes
+- [ ] API Gateway
+- [ ] Load balance
+- [ ] Service monitor tool
+- [ ] CSS Modules
+- [ ] ESlint + Prettier
